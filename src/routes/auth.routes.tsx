@@ -6,9 +6,13 @@ import SignIn from "../pages/SignIn";
 const Stack = createNativeStackNavigator();
 
 export default function AuthRoutes() {
-    return (
-        <Stack.Navigator>
-            <Stack.Screen name='SignIn' component={SignIn} options={{ headerShown: false }}/>
-        </Stack.Navigator>
-    )
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="SignIn"
+        component={SignIn}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  );
 }

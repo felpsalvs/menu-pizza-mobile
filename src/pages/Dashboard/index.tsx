@@ -13,11 +13,11 @@ export default function Dashboard() {
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Novo pedido</Text>
 
-      <TextInput 
-      style={styles.input} 
-      placeholder="Numero da mesa" 
-      placeholderTextColor={"#f0f0f0"}
-      keyboardType="numeric"
+      <TextInput
+        style={styles.input}
+        placeholder="Numero da mesa"
+        placeholderTextColor={"#f0f0f0"}
+        keyboardType="numeric"
       />
 
       <TouchableOpacity style={styles.button}>
@@ -34,13 +34,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#1d1d2e",
   },
-    title: {
+  title: {
     fontSize: 30,
     color: "#fff",
     marginBottom: 20,
     fontWeight: "bold",
-    },
-    input: {
+  },
+  input: {
     width: "90%",
     height: 50,
     backgroundColor: "#101026",
@@ -49,8 +49,8 @@ const styles = StyleSheet.create({
     fontSize: 22,
     textAlign: "center",
     color: "#fff",
-    },
-    button: {
+  },
+  button: {
     width: "90%",
     height: 40,
     backgroundColor: "#3fffa3",
@@ -58,10 +58,10 @@ const styles = StyleSheet.create({
     marginVertical: 12,
     alignItems: "center",
     justifyContent: "center",
-    },
-    buttonText: {
-        fontSize: 18,
-        color: "#101026",
-        fontWeight: "bold",
-    },
+  },
+  buttonText: {
+    fontSize: 18,
+    color: "#101026",
+    fontWeight: "bold",
+  },
 });
