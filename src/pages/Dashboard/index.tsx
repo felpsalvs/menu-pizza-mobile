@@ -1,14 +1,67 @@
-import React,{useContext, useState} from "react";
-import { View, Text, Button } from "react-native";
-import { AuthContext } from "../../contexts/AuthContext";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  TouchableOpacity,
+  TextInput,
+  StyleSheet,
+} from "react-native";
 
 export default function Dashboard() {
-    const {signOut} = useContext(AuthContext);
+  return (
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.title}>Novo pedido</Text>
 
-    return (
-        <View>
-        <Text>Dashboard</Text>
-        <Button title="Sair" onPress={signOut} />
-        </View>
-    );
-    }
+      <TextInput 
+      style={styles.input} 
+      placeholder="Numero da mesa" 
+      placeholderTextColor={"#f0f0f0"}
+      keyboardType="numeric"
+      />
+
+      <TouchableOpacity style={styles.button}>
+        <Text style={styles.buttonText}>Abrir mesa</Text>
+      </TouchableOpacity>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#1d1d2e",
+  },
+    title: {
+    fontSize: 30,
+    color: "#fff",
+    marginBottom: 20,
+    fontWeight: "bold",
+    },
+    input: {
+    width: "90%",
+    height: 50,
+    backgroundColor: "#101026",
+    borderRadius: 4,
+    paddingHorizontal: 8,
+    fontSize: 22,
+    textAlign: "center",
+    color: "#fff",
+    },
+    button: {
+    width: "90%",
+    height: 40,
+    backgroundColor: "#3fffa3",
+    borderRadius: 4,
+    marginVertical: 12,
+    alignItems: "center",
+    justifyContent: "center",
+    },
+    buttonText: {
+        fontSize: 18,
+        color: "#101026",
+        fontWeight: "bold",
+    },
+});
