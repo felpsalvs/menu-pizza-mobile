@@ -1,10 +1,11 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
+
 export default function Order() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Order</Text>
+      <Text style={styles.title}>Tela Order</Text>
     </View>
   );
 }

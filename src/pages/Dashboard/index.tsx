@@ -7,16 +7,20 @@ import {
   TextInput,
   StyleSheet,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { StackPramsList } from "../../routes/app.routes";
 
 export default function Dashboard() {
+  const navigation = useNavigation<NativeStackNavigationProp<StackPramsList>>();
   const [number, setNumber] = useState('');
 
   async function openOrder() {
     if(number === '') {
-      alert('Digite o numero da mesa')
       return;
     }
     //precisa fazer a requisição e abrir a mesa e navegar para a tela de pedidos
+    navigation.navigate('Order', { number: number, order_id: '' });
   }
 
   return (
