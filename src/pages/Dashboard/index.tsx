@@ -10,6 +10,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { StackPramsList } from "../../routes/app.routes";
+import { api } from "../../services/api";
 
 export default function Dashboard() {
   const navigation = useNavigation<NativeStackNavigationProp<StackPramsList>>();
@@ -19,8 +20,14 @@ export default function Dashboard() {
     if(number === '') {
       return;
     }
+
+    const response = await api.post('/order',{
+      table: Number(number)
+    })
+
+    console.log(response.data);
     //precisa fazer a requisição e abrir a mesa e navegar para a tela de pedidos
-    navigation.navigate('Order', { number: number, order_id: '' });
+    // navigation.navigate('Order', { number: number, order_id: '' });
   }
 
   return (
