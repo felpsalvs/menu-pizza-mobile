@@ -14,20 +14,21 @@ import { api } from "../../services/api";
 
 export default function Dashboard() {
   const navigation = useNavigation<NativeStackNavigationProp<StackPramsList>>();
-  const [number, setNumber] = useState('');
+  const [number, setNumber] = useState("");
 
   async function openOrder() {
-    if(number === '') {
+    if (number === "") {
       return;
     }
 
-    const response = await api.post('/order',{
-      table: Number(number)
-    })
+    const response = await api.post("/order", {
+      table: Number(number),
+    });
 
-    console.log(response.data);
-    //precisa fazer a requisição e abrir a mesa e navegar para a tela de pedidos
-    // navigation.navigate('Order', { number: number, order_id: '' });
+    navigation.navigate("Order", {
+      number: number,
+      order_id: response.data.id,
+    });
   }
 
   return (
