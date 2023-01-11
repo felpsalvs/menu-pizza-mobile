@@ -46,6 +46,14 @@ export default function Order() {
           value="0,00"
         />
       </View>
+      <View style={styles.actions}>
+        <TouchableOpacity style={styles.buttonAdd}>
+          <Text style={styles.buttonText}>Adicionar</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>Cancelar</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
