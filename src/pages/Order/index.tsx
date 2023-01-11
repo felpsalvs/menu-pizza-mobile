@@ -99,4 +99,30 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
   },
+  actions: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
+  },
+  buttonAdd: {
+    backgroundColor: "#3fd1ff",
+    borderRadius: 4,
+    height: 40,
+    width: "20%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  buttonText: {
+    color: "#101026",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  button: {
+    backgroundColor: "#3fffa3",
+    borderRadius: 4,
+    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
+    width: "75%",
+  },
 });
