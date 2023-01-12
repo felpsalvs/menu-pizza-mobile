@@ -37,6 +37,7 @@ export default function Order() {
     async function loadInfo() {
       const response = await api.get('/category');
       setCategory(response.data);
+      setCategorySelected(response.data[0]);
     }
 
     loadInfo();
@@ -64,9 +65,13 @@ export default function Order() {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.input}>
-        <Text style={{ color: "#fff" }}>Adicionar item</Text>
+      {category.length !== 0 && (
+        <TouchableOpacity style={styles.input}>
+        <Text style={{ color: "#fff" }}>
+          {categorySelected?.name}
+        </Text>
       </TouchableOpacity>
+      )}
       <TouchableOpacity style={styles.input}>
         <Text style={{ color: "#fff" }}>Adicionar item</Text>
       </TouchableOpacity>
