@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {
   View,
   Text,
@@ -32,6 +32,15 @@ export default function Order() {
   const [categorySelected, setCategorySelected] = useState<CategoryProps>();
 
   const [amount, setAmount] = useState('1');
+
+  useEffect(() => {
+    async function loadInfo() {
+      const response = await api.get('/category');
+      setCategory(response.data);
+    }
+
+    loadInfo();
+  }, []);
 
   async function handleCloseOrder() {
     try{
@@ -68,7 +77,8 @@ export default function Order() {
           style={[styles.input, { width: "60%", textAlign: "center" }]}
           placeholderTextColor="#f0f0f0"
           keyboardType="numeric"
-          value="0,00"
+          value={amount}
+          onChangeText={setAmount}
         />
       </View>
       <View style={styles.actions}>
