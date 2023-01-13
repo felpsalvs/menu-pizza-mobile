@@ -102,7 +102,11 @@ export default function Order() {
         animationType="fade"
         transparent={true}
         visible={modalCategoryVisible}>
-        <ModalPicker/>
+        <ModalPicker
+          handleCloseModal={() => setModalCategoryVisible(false)}
+          options={category}
+          selectedItem={() => {}}
+        />
         </Modal>
     </View>
   );
