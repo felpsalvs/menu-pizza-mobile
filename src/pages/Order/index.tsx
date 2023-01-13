@@ -10,6 +10,7 @@ import {
 import { useRoute, RouteProp, useNavigation } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
 import { api } from "../../services/api";
+import { ModalPicker } from "../../components/ModalPicker";
 
 type RouteDetailParams = {
   Order: {
@@ -96,6 +97,13 @@ export default function Order() {
           <Text style={styles.buttonText}>Cancelar</Text>
         </TouchableOpacity>
       </View>
+
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalCategoryVisible}>
+        <ModalPicker/>
+        </Modal>
     </View>
   );
 }
