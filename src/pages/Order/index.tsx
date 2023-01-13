@@ -31,7 +31,8 @@ export default function Order() {
 
   const [category, setCategory] = useState<CategoryProps[] | []>([]);
   const [categorySelected, setCategorySelected] = useState<CategoryProps>();
-
+  const [modalCategoryVisible, setModalCategoryVisible] = useState(false);
+  
   const [amount, setAmount] = useState('1');
 
   useEffect(() => {
@@ -67,7 +68,7 @@ export default function Order() {
       </View>
 
       {category.length !== 0 && (
-        <TouchableOpacity style={styles.input}>
+        <TouchableOpacity style={styles.input} onPress={() => setModalCategoryVisible(true)}>
         <Text style={{ color: "#fff" }}>
           {categorySelected?.name}
         </Text>
