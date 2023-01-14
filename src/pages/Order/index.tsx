@@ -36,10 +36,11 @@ export default function Order() {
   const navigation = useNavigation();
 
   const [category, setCategory] = useState<CategoryProps[] | []>([]);
-  const [categorySelected, setCategorySelected] = useState<CategoryProps>();
+  const [categorySelected, setCategorySelected] = useState<CategoryProps | undefined>();
   const [modalCategoryVisible, setModalCategoryVisible] = useState(false);
   const [products, setProducts] = useState<ProductProps[] | []>([]);
-  const [productSelected, setProductSelected] = useState<ProductProps>();
+  const [productSelected, setProductSelected] = useState<ProductProps | undefined>();
+  const [modalProductVisible, setModalProductVisible] = useState(false);
   const [amount, setAmount] = useState('1');
 
   useEffect(() => {
