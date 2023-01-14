@@ -24,6 +24,11 @@ type CategoryProps = {
   name: string;
 }
 
+type ProductProps = {
+  id: string;
+  name: string;
+}
+
 type OrderRouteProps = RouteProp<RouteDetailParams, "Order">;
 
 export default function Order() {
@@ -33,7 +38,8 @@ export default function Order() {
   const [category, setCategory] = useState<CategoryProps[] | []>([]);
   const [categorySelected, setCategorySelected] = useState<CategoryProps>();
   const [modalCategoryVisible, setModalCategoryVisible] = useState(false);
-  
+  const [products, setProducts] = useState<ProductProps[] | []>([]);
+  const [productSelected, setProductSelected] = useState<ProductProps>();
   const [amount, setAmount] = useState('1');
 
   useEffect(() => {
