@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -22,12 +22,12 @@ type RouteDetailParams = {
 type CategoryProps = {
   id: string;
   name: string;
-}
+};
 
 type ProductProps = {
   id: string;
   name: string;
-}
+};
 
 type OrderRouteProps = RouteProp<RouteDetailParams, "Order">;
 
@@ -36,16 +36,20 @@ export default function Order() {
   const navigation = useNavigation();
 
   const [category, setCategory] = useState<CategoryProps[] | []>([]);
-  const [categorySelected, setCategorySelected] = useState<CategoryProps | undefined>();
+  const [categorySelected, setCategorySelected] = useState<
+    CategoryProps | undefined
+  >();
   const [modalCategoryVisible, setModalCategoryVisible] = useState(false);
   const [products, setProducts] = useState<ProductProps[] | []>([]);
-  const [productSelected, setProductSelected] = useState<ProductProps | undefined>();
+  const [productSelected, setProductSelected] = useState<
+    ProductProps | undefined
+  >();
   const [modalProductVisible, setModalProductVisible] = useState(false);
-  const [amount, setAmount] = useState('1');
+  const [amount, setAmount] = useState("1");
 
   useEffect(() => {
     async function loadInfo() {
-      const response = await api.get('/category');
+      const response = await api.get("/category");
       setCategory(response.data);
       setCategorySelected(response.data[0]);
     }
@@ -53,16 +57,31 @@ export default function Order() {
     loadInfo();
   }, []);
 
-  async function handleCloseOrder() {
-    try{
-      await api.delete('/order', {
+  useEffect(() => {
+    async function loadProducts() {
+      const response = await api.get("/category/product", {
         params: {
-          order_id: route.params?.order_id
-        }
-      })
+          category_id: categorySelected?.id,
+        },
+      });
+
+      setProducts(response.data);
+      setProductSelected(response.data[0]);
+    }
+
+    loadProducts();
+  }, [categorySelected]);
+
+  async function handleCloseOrder() {
+    try {
+      await api.delete("/order", {
+        params: {
+          order_id: route.params?.order_id,
+        },
+      });
 
       navigation.goBack();
-    }catch(err){
+    } catch (err) {
       console.log(err);
     }
 
@@ -70,124 +89,130 @@ export default function Order() {
       setCategorySelected(item);
     }
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Mesa {route.params.number}</Text>
-        <TouchableOpacity onPress={handleCloseOrder}>
-          <Feather name="trash-2" size={28} color="#ff3f4b" />
-        </TouchableOpacity>
-      </View>
+    return (
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.title}>Mesa {route.params.number}</Text>
+          <TouchableOpacity onPress={handleCloseOrder}>
+            <Feather name="trash-2" size={28} color="#ff3f4b" />
+          </TouchableOpacity>
+        </View>
 
-      {category.length !== 0 && (
-        <TouchableOpacity style={styles.input} onPress={() => setModalCategoryVisible(true)}>
-        <Text style={{ color: "#fff" }}>
-          {categorySelected?.name}
-        </Text>
-      </TouchableOpacity>
-      )}
-      <TouchableOpacity style={styles.input}>
-        <Text style={{ color: "#fff" }}>Adicionar item</Text>
-      </TouchableOpacity>
+        {category.length !== 0 && (
+          <TouchableOpacity
+            style={styles.input}
+            onPress={() => setModalCategoryVisible(true)}
+          >
+            <Text style={{ color: "#fff" }}>{categorySelected?.name}</Text>
+          </TouchableOpacity>
+        )}
 
-      <View style={styles.qtdContainer}>
-        <Text style={styles.qtdText}>Total: R$ 0,00</Text>
-        <TextInput
-          style={[styles.input, { width: "60%", textAlign: "center" }]}
-          placeholderTextColor="#f0f0f0"
-          keyboardType="numeric"
-          value={amount}
-          onChangeText={setAmount}
-        />
-      </View>
-      <View style={styles.actions}>
-        <TouchableOpacity style={styles.buttonAdd}>
-          <Text style={styles.buttonText}>Adicionar</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Cancelar</Text>
-        </TouchableOpacity>
-      </View>
+        {products.length !== 0 && (
+          <TouchableOpacity style={styles.input}>
+            <Text style={{ color: "#fff" }}>{productSelected?.name}</Text>
+          </TouchableOpacity>
+        )}
 
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modalCategoryVisible}>
-        <ModalPicker
-          handleCloseModal={() => setModalCategoryVisible(false)}
-          options={category}
-          selectedItem={ handleChangeCategory }
-        />
+        <View style={styles.qtdContainer}>
+          <Text style={styles.qtdText}>Total: R$ 0,00</Text>
+          <TextInput
+            style={[styles.input, { width: "60%", textAlign: "center" }]}
+            placeholderTextColor="#f0f0f0"
+            keyboardType="numeric"
+            value={amount}
+            onChangeText={setAmount}
+          />
+        </View>
+        <View style={styles.actions}>
+          <TouchableOpacity style={styles.buttonAdd}>
+            <Text style={styles.buttonText}>Adicionar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>Cancelar</Text>
+          </TouchableOpacity>
+        </View>
+
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={modalCategoryVisible}
+        >
+          <ModalPicker
+            handleCloseModal={() => setModalCategoryVisible(false)}
+            options={category}
+            selectedItem={handleChangeCategory}
+          />
         </Modal>
-    </View>
-  );
-}
+      </View>
+    );
+  }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingVertical: "5%",
-    backgroundColor: "#1d1d2e",
-    paddingEnd: "4%",
-    paddingStart: "4%",
-  },
-  header: {
-    flexDirection: "row",
-    marginBottom: 12,
-    alignItems: "center",
-    marginTop: 24,
-  },
-  title: {
-    fontSize: 30,
-    color: "#fff",
-    marginRight: 14,
-    fontWeight: "bold",
-  },
-  input: {
-    backgroundColor: "#101026",
-    borderRadius: 4,
-    width: "100%",
-    height: 40,
-    marginBottom: 12,
-    justifyContent: "center",
-    paddingHorizontal: 8,
-    color: "#fff",
-    fontSize: 20,
-  },
-  qtdContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  qtdText: {
-    color: "#fff",
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  actions: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "100%",
-  },
-  buttonAdd: {
-    backgroundColor: "#3fd1ff",
-    borderRadius: 4,
-    height: 40,
-    width: "20%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  buttonText: {
-    color: "#101026",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  button: {
-    backgroundColor: "#3fffa3",
-    borderRadius: 4,
-    height: 40,
-    alignItems: "center",
-    justifyContent: "center",
-    width: "75%",
-  },
-});
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      paddingVertical: "5%",
+      backgroundColor: "#1d1d2e",
+      paddingEnd: "4%",
+      paddingStart: "4%",
+    },
+    header: {
+      flexDirection: "row",
+      marginBottom: 12,
+      alignItems: "center",
+      marginTop: 24,
+    },
+    title: {
+      fontSize: 30,
+      color: "#fff",
+      marginRight: 14,
+      fontWeight: "bold",
+    },
+    input: {
+      backgroundColor: "#101026",
+      borderRadius: 4,
+      width: "100%",
+      height: 40,
+      marginBottom: 12,
+      justifyContent: "center",
+      paddingHorizontal: 8,
+      color: "#fff",
+      fontSize: 20,
+    },
+    qtdContainer: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+    },
+    qtdText: {
+      color: "#fff",
+      fontSize: 20,
+      fontWeight: "bold",
+    },
+    actions: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      width: "100%",
+    },
+    buttonAdd: {
+      backgroundColor: "#3fd1ff",
+      borderRadius: 4,
+      height: 40,
+      width: "20%",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    buttonText: {
+      color: "#101026",
+      fontSize: 18,
+      fontWeight: "bold",
+    },
+    button: {
+      backgroundColor: "#3fffa3",
+      borderRadius: 4,
+      height: 40,
+      alignItems: "center",
+      justifyContent: "center",
+      width: "75%",
+    },
+  });
+}
