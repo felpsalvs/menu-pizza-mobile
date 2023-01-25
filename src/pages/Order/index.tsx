@@ -14,6 +14,9 @@ import { api } from "../../services/api";
 import { ModalPicker } from "../../components/ModalPicker";
 import { ListItem } from "../../components/ListItem";
 
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { StackPramsList } from "../../routes/app.routes";
+
 type RouteDetailParams = {
   Order: {
     number: number | string;
@@ -128,9 +131,9 @@ export default function Order() {
       });
 
       //após remover da api remove esse item da lista
-      let removeItem = items.filter( item => {
-        return (item.id !== item_id)
-      })
+      let removeItem = items.filter((item) => {
+        return item.id !== item_id;
+      });
 
       setItems(removeItem);
     }
@@ -189,7 +192,9 @@ export default function Order() {
         <FlatList
           data={items}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <ListItem data={item} deleteItem={handleDeleteItem} />}
+          renderItem={({ item }) => (
+            <ListItem data={item} deleteItem={handleDeleteItem} />
+          )}
           showsVerticalScrollIndicator={false}
           style={{ flex: 1, marginTop: 24 }}
         />
