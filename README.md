@@ -3,7 +3,6 @@
 Essa aplicação foi desenvolvida com o intuito de servir como um menu de pedidos e cadastro de produtos. O projeto possui um backend com o Prisma comunicando
 o Banco de Dados com o frontend e mobile. É possível encontrar os demais repositórios com a primeira palavra 'menu'.
 
-![image](https://user-images.githubusercontent.com/78622458/215358243-0f3639c9-a9d3-45bb-9df8-7ad0c3468db0.png)
 ![image](https://user-images.githubusercontent.com/78622458/215358363-f8971ce1-5857-47e1-b3e2-da8bec0f837a.png)
 
 ## Tecnologias
